@@ -1,0 +1,16 @@
+#Optional
+#Used to handle nullPointerException.
+
+
+eg. Employee e = someFunction returning employee;
+        String[] words = new String[10];
+            Optional<String> checkNull = Optional.ofNullable(words[5]);
+            if (checkNull.isPresent()) {
+                String word = words[5].toLowerCase();
+                System.out.print(word);
+            }
+            else
+                System.out.println("word is null");
+
+     //here ofNullable will get empty container instead of nullPtrException
+     we can check is Present to handle values

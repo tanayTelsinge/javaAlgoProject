@@ -1,0 +1,58 @@
+##Streams
+
+#What are Streams?
+#Special Iterator class to allow processing of collection of objects in a functional manner.
+#eg. fetch values in collections > 15 -> use filter.
+
+#Diff b/w java 8 streams and java.io.Streams?
+#Java io streams are sequence of binary data which is used to write in a file or read data from file.
+#java 8 streams are related to processing collections of objects.
+
+#How to create and process stream?
+
+Collection.stream()
+Configuration (Intermediate Operations) -->
+filter,
+map,
+peek --> mainly used for debugging => .filter(x->x>2).peek(sout).map(...).....,
+peek vs map --> peek does not return anything, map returns.
+distinct,
+sorted,
+limit --> limit(n) return a stream not longer than given size where size must be positive ,
+reduce :  Stream.reduce() combines elements of stream and produces single value, we need to take result of previous operation and perform on it.
+It takes two arguments, first is return value of previous application and 2nd is current stream element.
+eg. if gives integer list -> eg. {1,2,3,4,5}, combine all elements are print result.
+sout(intList.stream().reduce((a,b)-> a+b).get()));
+skip --> skip(n) method skips first n elements of stream. n must be +ve and if greater than elements size, returns empty stream.
+etc. basically perform operations.
+ sorted() ->
+    -sort elements ** but returns a stream, have to use forEach or collect etc.
+    -comparator can be used to sort as per requirement.
+    -stream().sorted((i1,i2)-> i2.compareTo(i1))
+
+Process  (Terminal Operations)--> multiple ways
+1. collect --> collect in some collection
+2. count --> count elements
+3. forEach --> does not return anything, takes lambda exp as argument and applies it to each element
+4. toArray --> convert to Object[] array. *Needs to typecast it.
+5. Min Max -->
+    -Min(Comparator)
+    -Max(Comparator) both take comparator and find min and max after compared.
+    eg. Return max from ascending or descending order (ignore if confusion)
+6. of() --> takes any group of values and converts it into stream.
+        -eg. array-> {"Test", "Best","Nest"}
+        Stream.of(array).filter() etc.
+        internally uses varargs and passes into Arrays.stream(varargs)
+
+7. allMatch()
+8. noneMatch()
+
+stream operations:
+filter -> filters out data
+map -> perform operation on each element in collection
+
+##Parallel Stream
+#Normal stream executes sequentially, to utilize multi-cores use parallel stream to execute parallely.
+
+
+#Intermediate operations are lazy loaded, i.e. without terminal operation at the end, it will not execute.

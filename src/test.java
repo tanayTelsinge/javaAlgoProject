@@ -2,6 +2,7 @@ import com.test.model.Employee;
 import com.test.model.LinkedListTest;
 import com.test.model.Patient;
 import com.test.utils.ArrayAlgoUtils;
+import com.test.utils.StringAlgoUtils;
 
 import java.util.*;
 import java.util.stream.Collectors;
@@ -80,7 +81,36 @@ public class test {
 
         System.out.println("k most frequent elements : " + ArrayAlgoUtils.topKFrequent(arr,k));
 
+        System.out.println();
+        int[] arrToSort = new int[]{1, 2, 4, 3, 8, 5, 9, 6};
 
+        //ArrayAlgoUtils.quickSort(arrToSort);
+        //ArrayAlgoUtils.insertionSort(arrToSort);
+        //ArrayAlgoUtils.mergeSort(arrToSort, 0, arrToSort.length - 1);
+        Arrays.stream(arrToSort).forEach(System.out::print);
+        String s1 = "A man, a plan, a canal: Panama";
+        Set<Integer> numSet = new HashSet<>();
+        int[] nums1 = new int[]{2,0,2,1,1,0};
+
+        ArrayAlgoUtils.sortColors(nums1);
+
+        //String
+        //check if all unique char
+        String str = "testString";
+        String uniqueStr = "tesla";
+        String stringWithSpaces = "Mr John Smith    ";
+        long start = System.currentTimeMillis();
+
+        // start of function
+        System.out.println(StringAlgoUtils.areAllUniqueChars(str));
+        // end of function
+
+        // ending time
+        long end = System.currentTimeMillis();
+        System.out.println("Function takes " +
+                (end - start) + "ms");
+        System.out.println(StringAlgoUtils.areAllUniqueChars(uniqueStr));
+        System.out.println(StringAlgoUtils.URLify(stringWithSpaces, 13));
 
     }
 }

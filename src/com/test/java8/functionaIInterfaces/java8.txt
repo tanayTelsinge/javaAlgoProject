@@ -1,0 +1,113 @@
+#lambda expression - an anonymous fn (w/o return type, name, access modifier)
+
+public void add(int a, int b){
+ sout(a+b);
+}
+
+(a,b) -> System.out.println(a+b)
+
+#Functional Interface => has single abstract method
+predefined FIs in java 8 imp - Predicate, Functions, Consumer, Supplier, BiPredicate (takes two arguments), BiFunctions(take two arguments), BiConsumer
+
+How FI and Lambda exp. are related?
+FI are references for Lambda exp.
+BiConsumer<Integer, Integer> biConsumer = (a,b) -> sout(some logic);
+   FI                                                  Lambda exp
+
+
+Can we create our own FI?
+Yes, use @FunctionalInterface annotation. It can have only one abstract method.
+It can have default/static methods.
+
+Method Reference -> ::
+No param method call can be used with this. Pro : no need to create instance, can be called with class name.
+eg. Test :: testImplementation
+
+
+Default methods
+To provide backward compatibility.
+Add method with contents in interface
+methods are always public
+Can be overriden - implemented method wala is overriden
+
+Q. If default method present, diamond problem occur i.e. Two interface with same method, which it will use?
+Use InterfaceName.super.methodName()
+else error.
+
+Q.Why static methods added to Interface in java8?
+To call methods with Inteface name directly without creating classes.
+Before java8, we had to create classes.
+***Static methods are not available to implementing classes (Default methods are available).
+They can be called via interface name only.
+
+JAVA 8 features:
+##Predicate:
+#Predicate is a predefined Functional Interface (i.e. only one abstract method)
+#One abstract method is `public boolean test(T t)`
+#Used to check for boolean conditions.
+#Takes one generic type eg. here its string
+#Pros :
+1.Code reusability
+2.Combine predicates via And, Or, Negate - logical opp.
+eg. to check two conditions --> checkLength > 5 and if length is even
+
+
+`
+  Predicate<String> checkLength = s -> s.length() > 5;
+  System.out.println(checkLength.test(s1) + " " + checkLength.test(s2));
+`
+
+##Functions:
+#A predefined Functional Interface
+#One abstract method R apply(T t)
+#return type can be any so we take both input and output type.
+
+Functional chaining using two ways:
+andThen --> f1 then f2 and compose --> f2 then f1
+`
+
+        //Functional chaining
+        Function<Integer, Integer> doubleIt = i -> 2*i;
+        Function<Integer, Integer> cubeIt = i -> i*i*i;
+
+        //first double then cube
+        System.out.println(doubleIt.andThen(cubeIt).apply(2));
+        //first cube then double
+        System.out.println(doubleIt.compose(cubeIt).apply(2));
+
+`
+
+Diff b/w Fn and predicate
+
+1. Signature diff ->  Predicate(T t)         Function(T, R) - takes return type too as it is not fixed
+2. Return type          boolean                   any
+3. Chaining           And, Or, Negate        AndThen, Compose
+4. Abstract method    test(T t)              apply(T t)
+
+##Consumer -
+#Predefined FI, will consume Item. Never returns anything i.e only consumes, never supply.
+#eg. take details and save to DB and don't return anything.
+
+`
+Interface Consumer <T>{
+  public void accept(T t)
+}
+`
+
+##Supplier -
+#Predefined FI, will always supply an Item. Never consume anything i.e only supply, never consume.
+#eg.
+
+`
+  Supplier<Date> currentDate = () -> new Date();
+  System.out.println(currentDate.get());
+`
+***No chaining as no input here.
+`
+Interface Supplier <R>{
+  public R get()
+}
+`
+
+##BiFunction and BiPredicate - similar to normal, but takes two arguments. eg. checkSumOfTwo
+**Limited to two, no tri or quadPredicate, java8 inbuilt till 2.
